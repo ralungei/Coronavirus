@@ -1,6 +1,25 @@
 <resources>
     <string name="app_name">Coronavirus</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_today">Novedades</string>
+    <string name="title_progress">Evolución</string>
+    <string name="title_help">Ayuda</string>
+    <string name="header_infected">Infectados</string>
+    <string name="header_dead">Defunciones</string>
+    <string name="header_healed">Curados</string>
+    <string name="label_new_cases">nuevos casos</string>
+
+    <string name="new121_cases">%1$d nuevos casos</string>
+    <string name="label_total_confirmations">confirmados totales</string>
+    <string name="label_total_deads">defunciones totales</string>
+    <string name="label_total_healed">curados totales</string>
+    <string name="label_than_yesterday">%1$c %2$d que ayer</string>
+
+    <string name="label_increased">INCREMENTADO</string>
+    <string name="label_decreased">DISMINUIDO</string>
+    <string name="title_current_situation">Situación actual</string>
+    <string name="label_last_update">última actualización:</string>
+    <string name="label_at_hour">a las</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,0 +1,87 @@
+package com.sera.ui.today;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.sera.R;
+import com.sera.model.CovidData;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Locale;
+
+class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder> {
+    private ArrayList<CovidData> covidDataList;
+    private Context context;
+
+
+    public CardsAdapter( ArrayList<CovidData> myCovidDataList, Context mContext) {
+        covidDataList = myCovidDataList;
+        context = mContext;
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        CardView cv;
+        TextView headerText;
+        TextView newCases;
+        TextView totalCases;
+        TextView diffCases;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            cv = itemView.findViewById(R.id.card_view);
+            headerText = itemView.findViewById(R.id.header_text);
+            newCases = itemView.findViewById(R.id.new_cases_number);
+            totalCases = itemView.findViewById(R.id.total_cases_number);
+            diffCases = itemView.findViewById(R.id.diff_cases_number);
+        }
+    }
+
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
+        MyViewHolder vh = new MyViewHolder(v);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        CovidData covData = covidDataList.get(position);
+
+        String title = covData.getTitle();
+        int newCases = covData.getNewCases();
+        int diffCases = covData.getDiffCases();
+        int totalCases = covData.getTotalCases();
+
+        char sign = Character.MIN_VALUE;
+        if(diffCases > 0)
+            sign = '+';
+        else if (diffCases < 0)
+            sign = '-';
+
+        NumberFormat numFormat = NumberFormat.getInstance(Locale.GERMAN);
+
+        holder.headerText.setText(title);
+        holder.totalCases.setText(numFormat.format(newCases));
+        holder.diffCases.setText(context.getString(R.string.label_than_yesterday, sign, newCases));
+        holder.totalCases.setText(numFormat.format(totalCases));
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return covidDataList.size();
+    }
+
+
+
+}
