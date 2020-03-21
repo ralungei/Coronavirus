@@ -11,19 +11,19 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sera.R;
-import com.sera.model.CovidData;
+import com.sera.model.StateData;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder> {
-    private ArrayList<CovidData> covidDataList;
+    private List<StateData> stateDataList;
     private Context context;
 
 
-    public CardsAdapter( ArrayList<CovidData> myCovidDataList, Context mContext) {
-        covidDataList = myCovidDataList;
+    public CardsAdapter(List<StateData> myStateDataList, Context mContext) {
+        stateDataList = myStateDataList;
         context = mContext;
     }
 
@@ -54,9 +54,9 @@ class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        CovidData covData = covidDataList.get(position);
+        StateData covData = stateDataList.get(position);
 
-        String title = covData.getTitle();
+        String title = covData.getId();
         int newCases = covData.getNewCases();
         int diffCases = covData.getDiffCases();
         int totalCases = covData.getTotalCases();
@@ -67,11 +67,21 @@ class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder> {
         else if (diffCases < 0)
             sign = '-';
 
+
+        if(title.equals(context.getResources().getString(R.string.header_infected)))
+            holder.headerText.setTextColor(context.getResources().getColor(R.color.colorAccent));
+        else if(title.equals(context.getResources().getString(R.string.header_dead)))
+            holder.headerText.setTextColor(context.getResources().getColor(R.color.black));
+        else if(title.equals(context.getResources().getString(R.string.header_healed)))
+            holder.headerText.setTextColor(context.getResources().getColor(R.color.green));
+
+        
+
         NumberFormat numFormat = NumberFormat.getInstance(Locale.GERMAN);
 
         holder.headerText.setText(title);
-        holder.totalCases.setText(numFormat.format(newCases));
-        holder.diffCases.setText(context.getString(R.string.label_than_yesterday, sign, newCases));
+        holder.newCases.setText(numFormat.format(newCases));
+        holder.diffCases.setText(context.getString(R.string.label_than_yesterday, sign, diffCases));
         holder.totalCases.setText(numFormat.format(totalCases));
 
 
@@ -79,7 +89,7 @@ class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return covidDataList.size();
+        return stateDataList.size();
     }
 
 
