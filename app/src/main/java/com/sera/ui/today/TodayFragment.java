@@ -1,13 +1,19 @@
 package com.sera.ui.today;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,26 +41,23 @@ public class TodayFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private TextView lastUpdateTextView;
-
+    private ProgressBar progressBar;
 
     private ArrayList<StateData> stateDataList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-//        stateDataList.add(new StateData("Infectados", 328, 13716, 238));
-//        stateDataList.add(new StateData("Defunciones", 1, 2, 3));
-//        stateDataList.add(new StateData("Curados", 1, 2, 3));
-//
-
-
         todayViewModel =
                 ViewModelProviders.of(this).get(TodayViewModel.class);
         View root = inflater.inflate(R.layout.fragment_today, container, false);
 
+
+        progressBar = (ProgressBar) root.findViewById(R.id.progressBar);
         recyclerView = (RecyclerView) root.findViewById(R.id.cards_recycler_view);
         lastUpdateTextView = (TextView) root.findViewById(R.id.last_update_label);
 
+        showProgress(true);
 
         CovidDataService covidDataService = RetrofitClientInstance.getRetrofitInstance().create(CovidDataService.class);
         Call<RetrofitData> call = covidDataService.getActual();
@@ -62,17 +65,16 @@ public class TodayFragment extends Fragment {
             @Override
             public void onResponse(Call<RetrofitData> call, Response<RetrofitData> response) {
                 loadData(response.body());
-                Toast.makeText(getActivity(), "good!", Toast.LENGTH_SHORT).show();
 
+                showProgress(false);
             }
 
             @Override
             public void onFailure(Call<RetrofitData> call, Throwable t) {
-                Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lo sentimos, parece que algo ha fallado... ¡Intentalo de nuevo más tarde!", Toast.LENGTH_SHORT).show();
 
             }
         });
-
 
 
         return root;
@@ -91,5 +93,14 @@ public class TodayFragment extends Fragment {
         mAdapter = new CardsAdapter(retrievedData.getStatesList(), getContext());
 
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mAdapter);}
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    private void showProgress(final boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+//            recyclerView.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+    }
 }

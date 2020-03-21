@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sera.R;
@@ -56,7 +57,7 @@ class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         StateData covData = stateDataList.get(position);
 
-        String title = covData.getId();
+        String id = covData.getId();
         int newCases = covData.getNewCases();
         int diffCases = covData.getDiffCases();
         int totalCases = covData.getTotalCases();
@@ -68,18 +69,33 @@ class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder> {
             sign = '-';
 
 
-        if(title.equals(context.getResources().getString(R.string.header_infected)))
-            holder.headerText.setTextColor(context.getResources().getColor(R.color.colorAccent));
-        else if(title.equals(context.getResources().getString(R.string.header_dead)))
-            holder.headerText.setTextColor(context.getResources().getColor(R.color.black));
-        else if(title.equals(context.getResources().getString(R.string.header_healed)))
-            holder.headerText.setTextColor(context.getResources().getColor(R.color.green));
+
+
+        int headerTitle = 0;
+        int color = R.color.black;
+
+        if(id.equals(context.getResources().getString(R.string.key_infected))) {
+            headerTitle = R.string.header_infected;
+            color = R.color.colorAccent;
+        }
+        else if(id.equals(context.getResources().getString(R.string.key_dead))) {
+            headerTitle = R.string.header_dead;
+            color = R.color.black;
+
+        }
+        else if(id.equals(context.getResources().getString(R.string.key_healed))) {
+            headerTitle = R.string.header_healed;
+            color = R.color.green;
+
+        }
 
         
 
         NumberFormat numFormat = NumberFormat.getInstance(Locale.GERMAN);
 
-        holder.headerText.setText(title);
+        holder.headerText.setText(headerTitle);
+        holder.headerText.setTextColor(ContextCompat.getColor(context, color));
+
         holder.newCases.setText(numFormat.format(newCases));
         holder.diffCases.setText(context.getString(R.string.label_than_yesterday, sign, diffCases));
         holder.totalCases.setText(numFormat.format(totalCases));
