@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.sera.ui.today.TodayFragment"
+        android:name="com.coronavirus.spain.sjra.ui.today.TodayFragment"
         android:label="@string/title_today"
         tools:layout="@layout/fragment_today" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.sera.ui.progress.DashboardFragment"
+        android:name="com.coronavirus.spain.sjra.ui.progress.DashboardFragment"
         android:label="@string/title_progress"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_help"
-        android:name="com.sera.ui.help.HelpFragment"
+        android:name="com.coronavirus.spain.sjra.ui.help.HelpFragment"
         android:label="@string/title_progress"
         tools:layout="@layout/fragment_help" />
 

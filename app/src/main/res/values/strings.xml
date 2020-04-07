@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Coronavirus</string>
-    <string name="title_today">Novedades</string>
+    <string name="title_today">Datos oficiales</string>
     <string name="title_progress">Evolución</string>
     <string name="title_help">Ayuda</string>
     <string name="header_infected">Infectados</string>
@@ -11,12 +11,19 @@
     <string name="label_total_confirmations">confirmados totales</string>
     <string name="label_total_deads">defunciones totales</string>
     <string name="label_total_healed">curados totales</string>
-    <string name="label_than_yesterday">%1$c %2$d que ayer</string>
+    <string name="label_than_yesterday">%1$c %2$d casos</string>
 
     <string name="label_increased">INCREMENTADO</string>
     <string name="label_decreased">DISMINUIDO</string>
     <string name="title_current_situation">Situación actual</string>
-    <string name="label_last_update">última actualización: %1$d/%2$d/%3$d a las %4$d:00</string>
+    <string name="label_last_update">%1$d/%2$d/%3$d a las %4$d:00</string>
+    <string name="label_data_date">%1$d/%2$d/%3$d</string>
+
+    <string name="percentage_value">%1$c%2$s%%</string>
+
+
+    <string name="label_quarantine_end">%1$d/%2$d/%3$d</string>
+
     <string name="label_at_hour">a las</string>
 
     <string name="spain">España</string>
@@ -25,4 +32,13 @@
     <string name="key_dead">dead</string>
     <string name="hello_blank_fragment">Under construction</string>
     <string name="empty">-</string>
+    <string name="data_not_found_message">¡Vaya! Parece que los datos no están disponibles en estos momentos. Por favor, vuelve un poco más tarde</string>
+    <string name="info_origin_message">La información mostrada a continuación proviene de los datos oficiales publicados por el Gobierno de España</string>
+    <string name="health_label">Salud</string>
+    <string name="help_header_label">Información para la ciudadanía</string>
+    <string name="quarantine_end_label">Fin de la cuarentena</string>
+    <string name="updated_info_label">Información actualizada</string>
+    <string name="verified">Verificado</string>
+    <string name="official_data_label">Datos oficiales</string>
+    <string name="daily_increase">Crecimiento diario</string>
 </resources>
